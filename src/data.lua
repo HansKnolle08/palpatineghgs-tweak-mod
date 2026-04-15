@@ -9,7 +9,16 @@ local function has_flag(flags, flag)
   return false
 end
 
-for _, type in pairs({"item", "ammo", "tool", "module"}) do
+local types = {
+  "item",
+  "ammo",
+  "tool",
+  "module",
+  "capsule",
+  "gun"
+}
+
+for _, type in pairs(types) do
   for _, obj in pairs(data.raw[type] or {}) do
     if not has_flag(obj.flags, "not-stackable") then
       obj.stack_size = stack_size

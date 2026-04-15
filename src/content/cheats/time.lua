@@ -2,15 +2,19 @@ local M = {}
 
 function M.toggle(player)
   local surface = player.surface
+  local current = surface.daytime
 
-  if surface.daytime < 0.5 then
-    surface.daytime = 0.5
+  local target
+
+  if math.abs(current - 0.5) < math.abs(current - 0.0) then
+    target = 0.0
   else
-    surface.daytime = 0
+    target = 0.5
   end
 
-  surface.freeze_daytime = true
-  player.print("Time toggled")
+  surface.daytime = target
+
+  player.print("Time set to: " .. (target == 0.5 and "Day" or "Night"))
 end
 
 return M

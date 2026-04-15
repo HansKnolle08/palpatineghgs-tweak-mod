@@ -1,12 +1,20 @@
 local M = {}
 
-local state = {}
-
 function M.toggle(player)
-  local idx = player.index
-  state[idx] = not state[idx]
+  if not global then return end
+  global.speed_state = global.speed_state or {}
 
-  if state[idx] then
+  local idx = player.index
+  global.speed_state[idx] = not global.speed_state[idx]
+
+  local active = global.speed_state[idx]
+
+  if not player.character then
+    player.print("No character found")
+    return
+  end
+
+  if active then
     player.character_running_speed_modifier = 2
     player.print("Speed: true")
   else
