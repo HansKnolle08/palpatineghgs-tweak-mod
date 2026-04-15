@@ -5,8 +5,8 @@ This is my first Factorio mod, in which i add some utility and tweak features th
 ## Features
 
 - Change the stack size for all stackable items to a user defined value via Mod Settings.
-- A button in the top left corner of the screen that opens a GUI with a Cheat Menu
-- The Cheat Menu allows you to be invincible, free crafting, a speed hack (only running speed), and a Day/Night toggle.
+- A button in the top left corner of the screen that opens a GUI with a Cheat Menu (Can be toggled on/off via Mod Settings).
+- The Cheat Menu allows you to be invincible, free crafting, a speed hack (only running speed), and a Day/Night toggle, instant mining and infinite interaction range
 
 ## Installation
 

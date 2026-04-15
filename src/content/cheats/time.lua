@@ -14,7 +14,7 @@ function M.toggle(player)
 
   surface.daytime = target
 
-  player.print("Time set to: " .. (target == 0.5 and "Day" or "Night"))
+  player.print("Time set to: " .. (target == 0.5 and "Night" or "Day"))
 end
 
 return M
