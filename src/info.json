@@ -1,9 +1,9 @@
 {
-  "name": "palpatineghgs-utility-mod",
+  "name": "palpatineghgs-tweak-mod",
   "version": "0.3.3",
-  "title": "PalpatineGHG's Utility Mod",
+  "title": "PalpatineGHG's Tweak Mod",
   "author": "PalpatineGHG",
   "factorio_version": "2.0",
   "dependencies": ["base >= 2.0"],
-  "description": "This Mod contains a lot of utilities to enhance the Factorio experience such as cheats and globally changeble stack size"
+  "description": "This Mod contains a lot of utilities and tweaks to enhance the Factorio experience such as cheats and globally changeble stack size"
 }
