@@ -8,10 +8,10 @@ function M.toggle(player)
 
   if state[idx] then
     player.character_running_speed_modifier = 2
-    player.print("Speed ON")
+    player.print("Speed: true")
   else
     player.character_running_speed_modifier = 0
-    player.print("Speed OFF")
+    player.print("Speed: false")
   end
 end
 

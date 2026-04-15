@@ -15,9 +15,9 @@ function M.toggle(player)
   player.character.destructible = not state[id]
 
   if state[id] then
-    player.print("Godmode ON")
+    player.print("Godmode: true")
   else
-    player.print("Godmode OFF")
+    player.print("Godmode: false")
   end
 end
 

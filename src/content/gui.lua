@@ -80,4 +80,3 @@ script.on_event(defines.events.on_gui_click, function(event)
     return
   end
 end)
-

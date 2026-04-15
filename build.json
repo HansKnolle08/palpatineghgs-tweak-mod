@@ -1,6 +1,6 @@
 {
     "mod-name": "palpatineghgs-tweak-mod",
-    "mod-version": "0.3.3",
+    "mod-version": "0.3.4",
     "source": "src/",
     "output-paths": {
         "project": "build/",
