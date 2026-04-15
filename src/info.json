@@ -1,0 +1,9 @@
+{
+  "name": "utility-mod",
+  "version": "0.3.3",
+  "title": "Hansisi's Utility Mod",
+  "author": "Hansisi",
+  "factorio_version": "2.0",
+  "dependencies": ["base >= 2.0"],
+  "description": "This Mod contains a lot of utilities to enhance the Factorio experience such as cheats and globally changeble stack size"
+}
