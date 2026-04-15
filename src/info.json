@@ -1,8 +1,8 @@
 {
-  "name": "utility-mod",
+  "name": "palpatineghgs-utility-mod",
   "version": "0.3.3",
-  "title": "Hansisi's Utility Mod",
-  "author": "Hansisi",
+  "title": "PalpatineGHG's Utility Mod",
+  "author": "PalpatineGHG",
   "factorio_version": "2.0",
   "dependencies": ["base >= 2.0"],
   "description": "This Mod contains a lot of utilities to enhance the Factorio experience such as cheats and globally changeble stack size"
