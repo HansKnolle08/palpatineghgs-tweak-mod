@@ -1,17 +1,15 @@
 local M = {}
 
 function M.toggle(player)
-  if not global then return end
   global.crafting_state = global.crafting_state or {}
 
   local idx = player.index
   global.crafting_state[idx] = not global.crafting_state[idx]
 
-  local active = global.crafting_state[idx]
+  global.pending_apply = global.pending_apply or {}
+  global.pending_apply[idx] = game.tick + 1
 
-  player.cheat_mode = active
-
-  player.print("Free Craft: " .. tostring(active))
+  player.print("Free Craft: " .. tostring(global.crafting_state[idx]))
 end
 
 return M

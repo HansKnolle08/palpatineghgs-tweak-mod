@@ -1,26 +1,15 @@
 local M = {}
 
 function M.toggle(player)
-  if not global then return end
   global.god_state = global.god_state or {}
 
-  local id = player.index
-  global.god_state[id] = not global.god_state[id]
+  local idx = player.index
+  global.god_state[idx] = not global.god_state[idx]
 
-  local active = global.god_state[id]
+  global.pending_apply = global.pending_apply or {}
+  global.pending_apply[idx] = game.tick + 1 
 
-  if not player.character then
-    player.print("No character found")
-    return
-  end
-
-  if active then
-    player.character.destructible = false
-    player.print("Godmode: true")
-  else
-    player.character.destructible = true
-    player.print("Godmode: false")
-  end
+  player.print("God Mode: " .. tostring(global.god_state[idx]))
 end
 
 return M

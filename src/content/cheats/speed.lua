@@ -1,26 +1,15 @@
 local M = {}
 
 function M.toggle(player)
-  if not global then return end
   global.speed_state = global.speed_state or {}
 
   local idx = player.index
   global.speed_state[idx] = not global.speed_state[idx]
 
-  local active = global.speed_state[idx]
+  global.pending_apply = global.pending_apply or {}
+  global.pending_apply[idx] = game.tick + 1
 
-  if not player.character then
-    player.print("No character found")
-    return
-  end
-
-  if active then
-    player.character_running_speed_modifier = 2
-    player.print("Speed: true")
-  else
-    player.character_running_speed_modifier = 0
-    player.print("Speed: false")
-  end
+  player.print("Speed: " .. tostring(global.speed_state[idx]))
 end
 
 return M

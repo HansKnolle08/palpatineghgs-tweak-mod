@@ -1,28 +1,15 @@
 local M = {}
 
 function M.toggle(player)
-  if not global then return end
   global.insta_mine_state = global.insta_mine_state or {}
 
   local idx = player.index
   global.insta_mine_state[idx] = not global.insta_mine_state[idx]
 
-  local active = global.insta_mine_state[idx]
+  global.pending_apply = global.pending_apply or {}
+  global.pending_apply[idx] = game.tick + 1
 
-  if not player.character then
-    player.print("No character found")
-    return
-  end
-
-  if active then
-    player.character_mining_speed_modifier = 50
-
-    player.print("Instant Mining: true")
-  else
-    player.character_mining_speed_modifier = 0
-
-    player.print("Instant Mining: false")
-  end
+  player.print("Instant Mining: " .. tostring(global.insta_mine_state[idx]))
 end
 
 return M

@@ -1,9 +1,10 @@
-local speed = require("content.cheats.speed")
-local time = require("content.cheats.time")
-local crafting = require("content.cheats.crafting")
-local god = require("content.cheats.god")
-local build_distance = require("content.cheats.build_distance")
-local insta_mine = require("content.cheats.insta_mine")
+local registry = require("content.cheats.registry")
+
+local function get_state(cheat, player)
+  if not cheat.state then return false end
+  if not global or not global[cheat.state] then return false end
+  return global[cheat.state][player.index] == true
+end
 
 function ensure_gui(player)
   local enabled = settings.get_player_settings(player)["enable-cheat-menu"].value
@@ -30,7 +31,7 @@ function ensure_gui(player)
   end
 end
 
-local function open_menu(player)
+function open_menu(player)
 
   if player.gui.screen.cheat_frame then
     player.gui.screen.cheat_frame.destroy()
@@ -45,12 +46,43 @@ local function open_menu(player)
 
   frame.location = {200, 200}
 
-  frame.add{type="button", name="cheat_speed", caption="Speed Toggle"}
-  frame.add{type="button", name="cheat_time", caption="Time Toggle"}
-  frame.add{type="button", name="cheat_craft", caption="Free Craft"}
-  frame.add{type="button", name="cheat_god", caption="God Mode"}
-  frame.add{type="button", name="cheat_build_distance", caption="Build Distance"}
-  frame.add{type="button", name="cheat_insta_mine", caption="Instant Mining"}
+  local categories = {}
+
+  -- group cheats by category
+  for _, cheat in pairs(registry.cheats) do
+    local cat = cheat.category or "Misc"
+
+    if not categories[cat] then
+      categories[cat] = {}
+    end
+
+    table.insert(categories[cat], cheat)
+  end
+
+  -- render categories
+  for cat_name, cheats in pairs(categories) do
+
+    local flow = frame.add{
+      type = "flow",
+      direction = "vertical"
+    }
+
+    flow.add{
+      type = "label",
+      caption = cat_name
+    }
+
+    for _, cheat in pairs(cheats) do
+      local state = get_state(cheat, player)
+
+      flow.add{
+        type = "button",
+        name = "cheat_" .. cheat.id,
+        caption = cheat.label .. " [" .. (state and "ON" or "OFF") .. "]"
+      }
+    end
+  end
+
   frame.add{type="button", name="cheat_close", caption="Close"}
 end
 
@@ -61,39 +93,22 @@ script.on_event(defines.events.on_gui_click, function(event)
   local player = game.players[event.player_index]
   local name = event.element.name
 
-  if name == "cheat_button" then
+  if name == "cheat_close" then
     local frame = player.gui.screen.cheat_frame
-
-    if frame then
-      frame.destroy()
-    else
-      open_menu(player)
-    end
+    if frame then frame.destroy() end
     return
   end
 
-  if name == "cheat_speed" then
-    speed.toggle(player)
-
-  elseif name == "cheat_time" then
-    time.toggle(player)
-
-  elseif name == "cheat_craft" then
-    crafting.toggle(player)
-
-  elseif name == "cheat_god" then
-    god.toggle(player)
-
-  elseif name == "cheat_build_distance" then
-    build_distance.toggle(player)
-
-  elseif name == "cheat_insta_mine" then
-    insta_mine.toggle(player)
-    
-  elseif name == "cheat_close" then
-    local frame = player.gui.screen.cheat_frame
-    if frame then
-      frame.destroy()
+  for _, cheat in pairs(registry.cheats) do
+    if name == "cheat_" .. cheat.id then
+      cheat.toggle(player)
+      open_menu(player)
+      return
     end
   end
 end)
+
+return {
+  ensure_gui = ensure_gui,
+  open_menu = open_menu
+}
